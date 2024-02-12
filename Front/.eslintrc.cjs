@@ -24,7 +24,7 @@ module.exports = {
 	},
 	plugins: ['react'],
 	rules: {
-		// 'no-var': 'error',
+		// 'no-used-var': 'error',
 		// 'preffer-const': 'warn',
 		'prettier/prettier': ['warn', { endOfLine: 'auto' }]
 	}
