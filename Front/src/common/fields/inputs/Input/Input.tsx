@@ -12,7 +12,7 @@ export const Input: FC<InputProps> = ({ isError = false, helperText, ...props })
 	return (
 		<>
 			<input className={`${styles.input} ${isError ? styles.input_error : ''}`} {...props} />
-			{isError && helperText && <div className={styles.helperText}>{helperText}</div>}
+			{isError && helperText && <div className={styles.helper_text}>{helperText}</div>}
 		</>
 	);
 };
