@@ -5,20 +5,46 @@
   height: 100vh;
 }
 
+.header_container {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  height: 150px;
+  width: 100%;
+  padding: 16px;
+  /* margin-bottom: 83px; */
+  background-image: url('../static/images/doge_background.svg');
+  border-radius: 20px 20px 0 0;
+  font-size: 40px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
 .container {
+  height: 500px;
   background-color: #ffffff;
   box-shadow: 0px 4px 50px 2px rgb(0, 0, 0, 0.15);
   border-radius: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-direction: column;
 }
 
-.form {
+.form_container {
   padding: 0 100px;
+  /* margin-bottom: 83px; */
 }
 
-.input {
+.input_container {
   margin-bottom: 10px;
+}
+
+.sing_up_container {
+  margin-bottom: 15px;
+  align-items: center;
+  font-size: 12px;
+  color: #f5c678;
+  font-weight: 600;
+  cursor: pointer;
 }
