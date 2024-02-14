@@ -1,18 +1,21 @@
 import { ChangeEvent, useState } from 'react';
 
-import { Input } from '../common/fields';
-import { Button } from '../common/buttons';
+import { Button } from 'src/common/buttons';
+import { Input } from 'src/common/fields';
 
 import styles from './LoginPage.module.css';
 
-const validateUsername = (value: string) => {
+const validateIsEmpty = (value: string) => {
 	if (!value) return 'field required';
 	return null;
 };
 
+const validateUsername = (value: string) => {
+	return validateIsEmpty(value);
+};
+
 const validatePassword = (value: string) => {
-	if (!value) return 'field required';
-	return null;
+	return validateIsEmpty(value);
 };
 
 const loginFormValidateSchema = {
@@ -20,7 +23,7 @@ const loginFormValidateSchema = {
 	password: validatePassword
 };
 
-const validateLoginForm = (name: 'username' | 'password', value: string) => {
+const validateLoginForm = (name: keyof typeof loginFormValidateSchema, value: string) => {
 	return loginFormValidateSchema[name](value);
 };
 
@@ -61,6 +64,7 @@ export const LoginPage = () => {
 						<Input
 							value={formValue.password}
 							isError={!!formErrors.password}
+							type="password"
 							placeholder="password"
 							onChange={(e: ChangeEvent<HTMLInputElement>) => {
 								const password = e.target.value;
