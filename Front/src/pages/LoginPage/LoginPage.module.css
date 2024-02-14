@@ -13,7 +13,7 @@
   width: 100%;
   padding: 16px;
   /* margin-bottom: 83px; */
-  background-image: url('../static/images/doge_background.svg');
+  background-image: url('../../static/images/doge_background.svg');
   border-radius: 20px 20px 0 0;
   font-size: 40px;
   text-transform: uppercase;

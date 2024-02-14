@@ -1,7 +1,8 @@
 import { ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { Button } from 'src/common/buttons';
-import { Input } from 'src/common/fields';
+import { Button } from '@common/buttons';
+import { Input } from '@common/fields';
 
 import styles from './LoginPage.module.css';
 
@@ -35,6 +36,8 @@ interface FormErrors {
 export const LoginPage = () => {
 	const [formValue, setFormValue] = useState({ username: '', password: '' });
 	const [formErrors, setFormErrors] = useState<FormErrors>({ username: null, password: null });
+
+	const navigate = useNavigate();
 
 	return (
 		<div className={styles.login_page}>
@@ -83,7 +86,9 @@ export const LoginPage = () => {
 						<Button>Sign in</Button>
 					</div>
 				</div>
-				<div className={styles.sing_up_container}>Create new accaunt</div>
+				<div className={styles.sing_up_container} onClick={() => navigate('/registration')}>
+					Create new accaunt
+				</div>
 			</div>
 		</div>
 	);
