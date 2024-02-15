@@ -1,17 +1,40 @@
 .input {
-  background: rgba(237, 237, 237, 0.7);
   border: none;
-  border-radius: 5px;
-  padding: 10px;
+  font-size: 12px;
   width: 100%;
   color: #000000;
+  background-color: transparent;
 }
 
 .input_container {
   position: relative;
+  display: flex;
+  background: rgba(237, 237, 237, 0.7);
+  border-radius: 5px;
+  width: 100%;
+  padding: 20px 15px 9px;
+  height: 48px;
+  cursor: text;
 }
 
-.input_container:hover>.input {
+.input_label {
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  transition: transform 150ms ease-out, font-size 150ms ease-out;
+  text-transform: capitalize;
+  cursor: text;
+}
+
+.focused .input_label {
+  transform: translateY(-100%);
+  font-size: 0.75em;
+}
+
+.input_container:hover {
   background-color: #ededed;
 }
 

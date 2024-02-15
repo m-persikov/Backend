@@ -48,7 +48,7 @@ export const LoginPage = () => {
 						<Input
 							value={formValue.username}
 							type="text"
-							placeholder="username"
+							label="username"
 							onChange={(e: ChangeEvent<HTMLInputElement>) => {
 								const username = e.target.value;
 								setFormValue({ ...formValue, username });
