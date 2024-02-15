@@ -65,14 +65,3 @@
   margin-top: 3px;
   margin-left: 10px;
 }
-
-.password_toggle_container {
-  position: absolute;
-  top: 7px;
-  right: 5px;
-  cursor: pointer;
-}
-
-.show {
-  cursor: pointer;
-}

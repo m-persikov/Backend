@@ -68,7 +68,7 @@ export const LoginPage = () => {
 						<InputPassword
 							value={formValue.password}
 							isError={!!formErrors.password}
-							placeholder="password"
+							label="password"
 							onChange={(e: ChangeEvent<HTMLInputElement>) => {
 								const password = e.target.value;
 								setFormValue({ ...formValue, password });
