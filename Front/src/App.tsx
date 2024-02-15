@@ -5,11 +5,23 @@ import { LoginPage, NotFoundPage, RegistrationPage } from './pages';
 
 import './App.css';
 
+// const Layout: FC = () => {
+// 	return (
+// 		<>
+// 			<header>Header</header>
+// 			<Outlet />
+// 			<footer>Footer</footer>
+// 		</>
+// 	);
+// };
+
 const AuthRoutes = () => (
 	<Routes>
+		{/* <Route path="/" element={<Layout />}> */}
 		<Route path="/auth" element={<LoginPage />} />
 		<Route path="/registration" element={<RegistrationPage />} />
 		<Route path="/*" element={<Navigate to="/auth" />} />
+		{/* </Route> */}
 	</Routes>
 );
 

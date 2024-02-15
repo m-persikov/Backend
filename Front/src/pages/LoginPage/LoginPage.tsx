@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Button } from '@common/buttons';
-import { Input } from '@common/fields';
+import { Input, InputPassword } from '@common/fields';
 
 import styles from './LoginPage.module.css';
 
@@ -47,6 +47,7 @@ export const LoginPage = () => {
 					<div className={styles.input_container}>
 						<Input
 							value={formValue.username}
+							type="text"
 							placeholder="username"
 							onChange={(e: ChangeEvent<HTMLInputElement>) => {
 								const username = e.target.value;
@@ -64,10 +65,9 @@ export const LoginPage = () => {
 						/>
 					</div>
 					<div className={styles.input_container}>
-						<Input
+						<InputPassword
 							value={formValue.password}
 							isError={!!formErrors.password}
-							type="password"
 							placeholder="password"
 							onChange={(e: ChangeEvent<HTMLInputElement>) => {
 								const password = e.target.value;

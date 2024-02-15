@@ -1,4 +1,4 @@
-import { FC, HTMLProps } from 'react';
+import { FC, HTMLProps, useState } from 'react';
 
 import styles from './Input.module.css';
 
@@ -8,11 +8,9 @@ interface InputProps extends HTMLProps<HTMLInputElement> {
 }
 
 export const Input: FC<InputProps> = ({ isError = false, helperText, ...props }) => {
-	// const className = isError ? 'input_error' : '';
 	return (
-		<>
+		<div className={styles.input_container}>
 			<input className={`${styles.input} ${isError ? styles.input_error : ''}`} {...props} />
-			{isError && helperText && <div className={styles.helper_text}>{helperText}</div>}
-		</>
+		</div>
 	);
 };
