@@ -1,8 +1,8 @@
 import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { Input, InputPassword, ChecBox } from '@common/fields';
 import { Button } from '@common/buttons';
-import { Input, InputPassword } from '@common/fields';
 
 import styles from './LoginPage.module.css';
 
@@ -34,9 +34,12 @@ interface FormErrors {
 }
 
 export const LoginPage = () => {
-	const [formValue, setFormValue] = useState({ username: '', password: '' });
+	const [formValues, setFormValues] = useState({
+		username: '',
+		password: '',
+		notMyComputer: false
+	});
 	const [formErrors, setFormErrors] = useState<FormErrors>({ username: null, password: null });
-
 	const navigate = useNavigate();
 
 	return (
@@ -46,12 +49,12 @@ export const LoginPage = () => {
 				<div className={styles.form_container}>
 					<div className={styles.input_container}>
 						<Input
-							value={formValue.username}
+							value={formValues.username}
 							type="text"
 							label="username"
 							onChange={(e: ChangeEvent<HTMLInputElement>) => {
 								const username = e.target.value;
-								setFormValue({ ...formValue, username });
+								setFormValues({ ...formValues, username });
 
 								const error = validateLoginForm('username', username);
 								//TODO: why are we doing this?
@@ -66,20 +69,30 @@ export const LoginPage = () => {
 					</div>
 					<div className={styles.input_container}>
 						<InputPassword
-							value={formValue.password}
+							value={formValues.password}
 							isError={!!formErrors.password}
 							label="password"
 							onChange={(e: ChangeEvent<HTMLInputElement>) => {
 								const password = e.target.value;
-								setFormValue({ ...formValue, password });
+								setFormValues({ ...formValues, password });
 
 								const error = validateLoginForm('password', password);
-								setFormErrors({ ...formValue, password: error });
+								setFormErrors({ ...formValues, password: error });
 							}}
 							{...(!!formErrors.password && {
 								isError: !!formErrors.password,
 								helperText: formErrors.password
 							})}
+						/>
+					</div>
+					<div className={styles.input_container}>
+						<ChecBox
+							checked={formValues.notMyComputer}
+							label="This is not my device"
+							onChange={(e: ChangeEvent<HTMLInputElement>) => {
+								const notMyComputer = e.target.checked;
+								setFormValues({ ...formValues, notMyComputer });
+							}}
 						/>
 					</div>
 					<div>
