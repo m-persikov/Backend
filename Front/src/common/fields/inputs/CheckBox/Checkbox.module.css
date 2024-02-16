@@ -25,19 +25,14 @@
   cursor: pointer;
   width: 15px;
   height: 14px;
-  border: 2px solid rgba(245, 198, 120, 0.7);
-  /* border: 0.14rem solid var(--color-accent7); */
+  border: 2px solid var(--primary-seventy-percent);
   background: transparent;
   border-radius: 0.35rem;
 }
 
 .custom_checkbox:hover {
-  border: 2px solid rgba(245, 198, 120, 1);
+  border: 2px solid var(--primary);
 }
-
-/* .custom_checkbox:hover {
-  border: 0.14rem solid var(--color-accent7);
-} */
 
 .checkbox:checked~.custom_checkbox {
   border: none;

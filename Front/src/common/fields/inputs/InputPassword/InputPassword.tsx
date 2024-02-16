@@ -5,32 +5,25 @@ import styles from '../Input.module.css';
 
 export const InputPassword: FC<InputProps> = ({ isError = false, helperText, label, ...props }) => {
 	const [showPassword, setShowPassword] = useState(false);
-	const [isFocus, setFocus] = useState(!!props.value ?? false);
 	const inputRef = useRef<HTMLInputElement>(null);
 	const showPasswordToggle = props.value;
 
 	return (
 		<>
 			<div
-				className={`${styles.input_container} ${isError ? styles.input_container : ''} 
-			    ${isFocus ? styles.focused : ''}`}
-				onClick={() => {
-					inputRef.current?.focus();
-					setFocus(true);
-				}}
+				className={`${styles.input_container} ${isError ? styles.input_container : ''} `}
+				onClick={() => inputRef.current?.focus()}
 			>
-				<label htmlFor="" className={styles.input_label}>
-					{label}
-				</label>
 				<input
 					ref={inputRef}
 					className={styles.input}
 					//TODO: best practice
 					type={showPasswordToggle && showPassword ? 'text' : 'password'}
-					//TODO: best practice
-					onBlur={() => !props.value && setFocus(false)}
 					{...props}
 				/>
+				<label htmlFor="" className={styles.input_label}>
+					{label}
+				</label>
 				{showPasswordToggle && (
 					<div
 						className={passwordStyles.password_toggle_container}

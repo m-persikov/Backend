@@ -6,7 +6,7 @@ interface ButtonProps extends HTMLProps<HTMLButtonElement> {
 	isLoading?: boolean;
 }
 
-export const Button: FC<ButtonProps> = ({ children, isLoading = true }) => {
+export const Button: FC<ButtonProps> = ({ children, isLoading = false }) => {
 	return (
 		<button className={styles.button}>
 			{/* TODO: best practice */}
