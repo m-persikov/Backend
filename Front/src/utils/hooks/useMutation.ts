@@ -1,36 +1,35 @@
 import { useCallback, useState } from 'react';
 
-interface Config<T> extends Omit<RequestInit, 'body'> {
-	body?: T;
-}
+type MutationMethods = 'POST' | 'PUT' | 'DELETE';
 
-interface UseMutationParams<T> {
-	url: string;
-	config: Config<T>;
-}
-
-export const useMutation = <T, K>({ url, config }: UseMutationParams<T>) => {
+export const useMutation = <T>(
+	url: string,
+	method: MutationMethods,
+	config?: Omit<RequestInit, 'method'>
+) => {
 	const [status, setStatus] = useState(0);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState('');
 
-	const mutation = useCallback(async () => {
+	const mutation = useCallback(async (body: T) => {
 		setIsLoading(true);
 		try {
 			const response = await fetch(url, {
 				credentials: 'same-origin',
-				// ...config,
+				...config,
+				method,
 				headers: {
-					'Content-Type': 'application/json'
-					// ...config.headers
+					'Content-Type': 'application/json',
+					...(!!config?.headers && config.headers)
 				},
-				...(config.body && { body: JSON.stringify(config.body) })
+				...(!!body && { body: JSON.stringify(body) })
 			});
+
 			setStatus(response.status);
-			return (await response.json()) as Promise<K>;
-		} catch (e: any) {
+			return await response.json();
+		} catch (error) {
 			setIsLoading(false);
-			setError(e);
+			setError((error as Error).message);
 		} finally {
 			setIsLoading(false);
 		}

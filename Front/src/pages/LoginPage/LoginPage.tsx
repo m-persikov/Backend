@@ -5,6 +5,7 @@ import { Input, InputPassword, ChecBox } from '@common/fields';
 import { Button } from '@common/buttons';
 
 import styles from './LoginPage.module.css';
+import { useMutation } from '@utils/';
 
 const validateIsEmpty = (value: string) => {
 	if (!value) return 'field required';
@@ -34,25 +35,22 @@ interface FormErrors {
 }
 
 export const LoginPage = () => {
+	const navigate = useNavigate();
 	const [formValues, setFormValues] = useState({
 		username: '',
 		password: '',
 		notMyComputer: false
 	});
+	const { mutation: authMutation, isLoading: authLoading } = useMutation<typeof formValues>(
+		'http://localhost:4000/auth',
+		'POST'
+	);
 	const [formErrors, setFormErrors] = useState<FormErrors>({ username: null, password: null });
-	const navigate = useNavigate();
 
 	const handlerOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const response = await fetch('http://localhost:4000/auth', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(formValues)
-		});
-		const responseData = await response.json();
-		console.log('onSubmit={ ~ responseData:', responseData);
+		const response = await authMutation(formValues);
+		console.log('response:', response);
 	};
 
 	return (
@@ -62,6 +60,7 @@ export const LoginPage = () => {
 				<form className={styles.form_container} onSubmit={handlerOnSubmit}>
 					<div className={styles.input_container}>
 						<Input
+							disabled={authLoading}
 							value={formValues.username}
 							type="text"
 							label="username"
@@ -69,9 +68,7 @@ export const LoginPage = () => {
 								const username = e.target.value;
 								setFormValues({ ...formValues, username });
 								const error = validateLoginForm('username', username);
-								//TODO: why are we doing this?
-								// if (error) return setFormErrors({ ...formErrors, username: error });
-								setFormErrors({ ...formErrors, username: error });
+								if (error) setFormErrors({ ...formErrors, username: error });
 							}}
 							{...(!!formErrors.username && {
 								isError: !!formErrors.username,
@@ -81,6 +78,7 @@ export const LoginPage = () => {
 					</div>
 					<div className={styles.input_container}>
 						<InputPassword
+							disabled={authLoading}
 							value={formValues.password}
 							isError={!!formErrors.password}
 							label="password"
@@ -89,7 +87,7 @@ export const LoginPage = () => {
 								setFormValues({ ...formValues, password });
 
 								const error = validateLoginForm('password', password);
-								setFormErrors({ ...formValues, password: error });
+								if (error) setFormErrors({ ...formValues, password: error });
 							}}
 							{...(!!formErrors.password && {
 								isError: !!formErrors.password,
@@ -108,7 +106,9 @@ export const LoginPage = () => {
 						/>
 					</div>
 					<div>
-						<Button type="submit">Sign in</Button>
+						<Button isLoading={authLoading} type="submit">
+							Sign in
+						</Button>
 					</div>
 				</form>
 				<div className={styles.sing_up_container} onClick={() => navigate('/registration')}>
