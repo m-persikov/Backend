@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Input, InputPassword, ChecBox } from '@common/fields';
@@ -42,11 +42,24 @@ export const LoginPage = () => {
 	const [formErrors, setFormErrors] = useState<FormErrors>({ username: null, password: null });
 	const navigate = useNavigate();
 
+	const handlerOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		const response = await fetch('http://localhost:4000/auth', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(formValues)
+		});
+		const responseData = await response.json();
+		console.log('onSubmit={ ~ responseData:', responseData);
+	};
+
 	return (
 		<div className={styles.login_page}>
 			<div className={styles.container}>
 				<div className={styles.header_container}>DOGGEE</div>
-				<div className={styles.form_container}>
+				<form className={styles.form_container} onSubmit={handlerOnSubmit}>
 					<div className={styles.input_container}>
 						<Input
 							value={formValues.username}
@@ -55,7 +68,6 @@ export const LoginPage = () => {
 							onChange={(e: ChangeEvent<HTMLInputElement>) => {
 								const username = e.target.value;
 								setFormValues({ ...formValues, username });
-
 								const error = validateLoginForm('username', username);
 								//TODO: why are we doing this?
 								// if (error) return setFormErrors({ ...formErrors, username: error });
@@ -96,9 +108,9 @@ export const LoginPage = () => {
 						/>
 					</div>
 					<div>
-						<Button>Sign in</Button>
+						<Button type="submit">Sign in</Button>
 					</div>
-				</div>
+				</form>
 				<div className={styles.sing_up_container} onClick={() => navigate('/registration')}>
 					Create new accaunt
 				</div>
