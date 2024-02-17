@@ -2,10 +2,10 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Input, InputPassword, ChecBox } from '@common/fields';
+import { useMutation, useQuery } from '@utils/';
 import { Button } from '@common/buttons';
 
 import styles from './LoginPage.module.css';
-import { useMutation } from '@utils/';
 
 const validateIsEmpty = (value: string) => {
 	if (!value) return 'field required';
@@ -34,6 +34,12 @@ interface FormErrors {
 	password: string | null;
 }
 
+interface User {
+	username: string;
+	password: string;
+	id: string;
+}
+
 export const LoginPage = () => {
 	const navigate = useNavigate();
 	const [formValues, setFormValues] = useState({
@@ -41,16 +47,18 @@ export const LoginPage = () => {
 		password: '',
 		notMyComputer: false
 	});
-	const { mutation: authMutation, isLoading: authLoading } = useMutation<typeof formValues>(
+	const { mutation: authMutation, isLoading: authLoading } = useMutation<typeof formValues, User>(
 		'http://localhost:4000/auth',
 		'POST'
 	);
+
+	const { data } = useQuery('http://localhost:4000/users', [formValues.username]);
 	const [formErrors, setFormErrors] = useState<FormErrors>({ username: null, password: null });
 
 	const handlerOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const response = await authMutation(formValues);
-		console.log('response:', response);
+		console.log('handlerOnSubmit ~ response:', response);
 	};
 
 	return (

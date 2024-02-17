@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 
 type MutationMethods = 'POST' | 'PUT' | 'DELETE';
 
-export const useMutation = <T>(
+export const useMutation = <T, K>(
 	url: string,
 	method: MutationMethods,
 	config?: Omit<RequestInit, 'method'>
@@ -11,7 +11,7 @@ export const useMutation = <T>(
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState('');
 
-	const mutation = useCallback(async (body: T) => {
+	const mutation = useCallback(async (body: T): Promise<ApiResponse<K>> => {
 		setIsLoading(true);
 		try {
 			const response = await fetch(url, {
@@ -26,10 +26,11 @@ export const useMutation = <T>(
 			});
 
 			setStatus(response.status);
-			return await response.json();
+			return (await response.json()) as Promise<ApiResponse<K>>;
 		} catch (error) {
 			setIsLoading(false);
 			setError((error as Error).message);
+			return { success: false, data: { message: (error as Error).message } };
 		} finally {
 			setIsLoading(false);
 		}
