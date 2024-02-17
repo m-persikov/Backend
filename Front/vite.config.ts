@@ -7,7 +7,8 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'@common': '/src/common',
-			'@pages': '/src/pages'
+			'@pages': '/src/pages',
+			'@utils': '/src/utils'
 		}
 	}
 });
