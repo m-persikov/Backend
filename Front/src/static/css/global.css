@@ -1,9 +1,16 @@
 :root {
   /* colors */
-  --primary: #f5c678;
-  --primary-hover: #f6ae3b;
-  --primary-seventy-percent: rgba(245, 198, 120, 0.7);
+  --color-accent: #f5c678;
+  --color-accent-hover: #f6ae3b;
+  --color-accent-seventy-percent: rgba(245, 198, 120, 0.7);
+  --color-text-validation: #db3939;
+  --text-validataion-seventy-percent: rgba(219, 57, 57, 0.3);
 
+  --color-text: #000000;
+  --color-placeholder: rgba(0, 0, 0, 0.5);
+  --color-field-focused: #ededed;
+  --background-color-field: rgba(237, 237, 237, 0.7);
+  --background-color: #ffffff;
   /* spacing */
 
   /* text */

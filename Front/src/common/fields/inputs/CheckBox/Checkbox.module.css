@@ -25,13 +25,13 @@
   cursor: pointer;
   width: 15px;
   height: 14px;
-  border: 2px solid var(--primary-seventy-percent);
+  border: 2px solid var(--color-accent-seventy-percent);
   background: transparent;
   border-radius: 0.35rem;
 }
 
 .custom_checkbox:hover {
-  border: 2px solid var(--primary);
+  border: 2px solid var(--color-accent);
 }
 
 .checkbox:checked~.custom_checkbox {

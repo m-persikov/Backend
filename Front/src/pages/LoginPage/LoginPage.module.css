@@ -46,11 +46,11 @@
   margin-bottom: 15px;
   align-items: center;
   font-size: 14px;
-  color: var(--primary);
+  color: var(--color-accent);
   font-weight: 600;
   cursor: pointer;
 }
 
 .sing_up_container:hover {
-  color: var(--primary-hover);
+  color: var(--color-accent-hover);
 }
