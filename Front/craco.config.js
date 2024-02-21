@@ -8,6 +8,7 @@ module.exports = {
         source: 'tsconfig',
         baseUrl: './src',
         tsConfigPath: './tsconfig.paths.json',
+        common: '@common'
       },
     },
   ],
