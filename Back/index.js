@@ -24,6 +24,11 @@ server.post("/registration", (req, res, next) => {
   next();
 });
 
+// server.get("/auth", (req, res) => {
+//   const data = db.users;
+//   res.send({ data });
+// });
+
 server.post("/auth", (req, res) => {
   const { body } = req;
   console.log("server.post ~ body:", body);
@@ -33,7 +38,7 @@ server.post("/auth", (req, res) => {
 
   if (!user) {
     res.status(404);
-    res.send({ success: false, data: { message: "use is not exist" } });
+    res.send({ success: false, data: { message: "user is not exist" } });
   }
 
   res.cookie("doggee-auth", "123456", {
